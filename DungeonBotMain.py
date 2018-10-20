@@ -8,7 +8,7 @@ from time import sleep
 defaults_server = {'prefix':'?',
             'mod-role':'db-mod',
             'admin-role':'db-admin',
-            'welcome-message':'Welcome to the BSGE Dungeons & Dragons Club Discord!'}
+            'welcome-message':'Welcome to the Dungeons & Dragons Club Discord!'}
 defaults_global = {'game-status':'Dungeons & Dragons'}
 
 try:
@@ -526,4 +526,4 @@ async def on_member_join(m):
     settings = settings_ent[m.server.name]
     await client.send_message(m, 'Hi, ' + m.name + '! ' + settings['welcome-message'] + ' For help with my commands, go to the server and type "' + settings['prefix'] + 'help"!')
     
-client.run('NTAxMzkzNjc1MTYzNzk1NDU3.DqYu1Q.We1XGLTjm8WqupqvNnn1HFFu_QY')
+client.run('lol')
