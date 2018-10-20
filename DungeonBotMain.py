@@ -266,7 +266,7 @@ async def on_message(m):
                         except:
                             ret = 'Unknown command: `' + command[0] + '`'
                 elif command[0] == 'iam':
-                    await client.send_message(m.channel, 'Loading...')
+                    _tmp = await client.send_message(m.channel, 'Loading...')
                     races = ['dwarf','elf','halfling','human','dragonborn','gnome','half-elf','half-orc','tiefling']
                     classes = ['barbarian','bard','cleric','druid','fighter','monk','paladin','ranger','rogue','sorcerer','warlock','wizard']
                     align_1 = ['lawful','social','neutral','rebel','chaotic']
@@ -454,7 +454,7 @@ async def on_message(m):
                             ret += final['a2'] + '.'
                         if ret.endswith(' '):
                             ret = ret.strip() + '.'
-                    
+                    await client.delete_message(_tmp)
                 elif command[0] == 'purge':
                     if has_role(m.author, settings['admin-role']):
                         await client.purge_from(m.channel,limit=1 + abs(int(command[1][0])))
