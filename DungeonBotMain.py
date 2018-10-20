@@ -406,9 +406,10 @@ async def on_message(m):
                                 if (i.name in races or i.name in classes or i.name in align_1 or i.name in align_2):
                                     user_roles.add(i.name)
                             await asyncio.sleep(0.15)
+                        if _add_roles != []:                
+                            await client.add_roles(m.author, *_add_roles)
                         #print(user_roles)
-                    if _add_roles != []:                
-                        await client.add_roles(m.author, *_add_roles)
+                   
                     roles_checked = {}
                     for role in m.server.roles:
                         if role.name in roles_checked.keys():
