@@ -291,10 +291,12 @@ async def on_message(m):
                                 c_a2= random.choice(align_2)
                         failures = []
                     elif command[1][0].lower() == 'clear' or command[1][0].lower() == 'none' or command[1][0].lower() == 'nothing':
+                        remove_roles = []
                         for i in m.author.roles:
                             if (i.name in races or i.name in classes or i.name in align_1 or i.name in align_2):
-                                await client.remove_roles(m.author, i)
-                                await asyncio.sleep(0.15)
+                                remove_roles.append(i)
+                        if remove_roles != []:
+                            await client.remove_roles(m.author, *remove_roles)
                         c_race = None
                         c_class = None
                         c_a1 = None
@@ -337,77 +339,83 @@ async def on_message(m):
                         checkset.add(c_a2)
                     #print(checkset)
                     while not user_roles == checkset:
+                        add_roles = []
+                        remove_roles = []
                         if c_race in races:
                             if c_race in server_role_names:
-                                await client.add_roles(m.author, server_roles[server_role_names.index(c_race)])
+                                add_roles.append(server_roles[server_role_names.index(c_race)])
                             else:
                                 nr = await client.create_role(m.server, name=c_race, color=discord.Color(rgb_to_hex((random.randint(0,255),random.randint(0,255),random.randint(0,255)))))
-                                await client.add_roles(m.author, nr)
+                                add_roles.append(nr)
                         elif c_race == None:
                             pass
                         else:
                             c_race = random.choice(races)
                             if c_race in server_role_names:
-                                await client.add_roles(m.author, server_roles[server_role_names.index(c_race)])
+                                add_roles.append(server_roles[server_role_names.index(c_race)])
                             else:
                                 nr = await client.create_role(m.server, name=c_race, color=discord.Color(rgb_to_hex((random.randint(0,255),random.randint(0,255),random.randint(0,255)))))
-                                await client.add_roles(m.author, nr)
+                                add_roles.append(nr)
                         if c_class in classes:
                             if c_class in server_role_names:
-                                await client.add_roles(m.author, server_roles[server_role_names.index(c_class)])
+                                add_roles.append(server_roles[server_role_names.index(c_class)])
                             else:
                                 nr = await client.create_role(m.server, name=c_class, color=discord.Color(rgb_to_hex((random.randint(0,255),random.randint(0,255),random.randint(0,255)))))
-                                await client.add_roles(m.author, nr)
+                                add_roles.append(nr)
                         elif c_class == None:
                             pass
                         else:
                             c_class = random.choice(classes)
                             if c_class in server_role_names:
-                                await client.add_roles(m.author, server_roles[server_role_names.index(c_class)])
+                                add_roles.append(server_roles[server_role_names.index(c_class)])
                             else:
                                 nr = await client.create_role(m.server, name=c_race, color=discord.Color(rgb_to_hex((random.randint(0,255),random.randint(0,255),random.randint(0,255)))))
-                                await client.add_roles(m.author, nr)
+                                add_roles.append(nr)
                         if c_a1 in align_1:
                             if c_a1 in server_role_names:
-                                await client.add_roles(m.author, server_roles[server_role_names.index(c_a1)])
+                                add_roles.append(server_roles[server_role_names.index(c_a1)])
                             else:
                                 nr = await client.create_role(m.server, name=c_a1, color=discord.Color(rgb_to_hex((random.randint(0,255),random.randint(0,255),random.randint(0,255)))))
-                                await client.add_roles(m.author, nr)
+                                add_roles.append(nr)
                         elif c_a1 == None:
                             pass
                         else:
                             c_a1 = random.choice(align_1)
                             if c_a1 in server_role_names:
-                                await client.add_roles(m.author, server_roles[server_role_names.index(c_a1)])
+                                add_roles.append(server_roles[server_role_names.index(c_a1)])
                             else:
                                 nr = await client.create_role(m.server, name=c_a1, color=discord.Color(rgb_to_hex((random.randint(0,255),random.randint(0,255),random.randint(0,255)))))
-                                await client.add_roles(m.author, nr)
+                                add_roles.append(nr)
                         if str(c_a2) in align_2 or c_a2 == 'neutral':
                             if c_a2 == 'neutral':
                                 c_a2 = 'impartial'
                             if c_a2 in server_role_names:
-                                await client.add_roles(m.author, server_roles[server_role_names.index(c_a2)])
+                                add_roles.append(server_roles[server_role_names.index(c_a2)])
                             else:
                                 nr = await client.create_role(m.server, name=c_a2, color=discord.Color(rgb_to_hex((random.randint(0,255),random.randint(0,255),random.randint(0,255)))))
-                                await client.add_roles(m.author, nr)
+                                add_roles.append(nr)
                         elif c_a2 == None:
                             pass
                         else:
                             c_a2 = random.choice(align_2)
                             if c_a2 in server_role_names:
-                                await client.add_roles(m.author, server_roles[server_role_names.index(c_a2)])
+                                add_roles.append(server_roles[server_role_names.index(c_a2)])
                             else:
                                 nr = await client.create_role(m.server, name=c_a2, color=discord.Color(rgb_to_hex((random.randint(0,255),random.randint(0,255),random.randint(0,255)))))
-                                await client.add_roles(m.author, nr)
+                                add_roles.append(nr)
                         user_roles = {'@everyone'}
                         for i in m.author.roles:
                             if (i.name in races or i.name in classes or i.name in align_1 or i.name in align_2) and (i.name != c_race and i.name != c_class and i.name != c_a1 and i.name != c_a2):
                                 if (i.name in races and c_race != None) or (i.name in classes and c_class != None) or (i.name in align_1 and c_a1 != None) or (i.name in align_2 and c_a2 != None):
-                                    await client.remove_roles(m.author, i)
+                                    remove_roles.append(i)
                             else:
                                 if (i.name in races or i.name in classes or i.name in align_1 or i.name in align_2):
                                     user_roles.add(i.name)
                             await asyncio.sleep(0.15)
+                        if add_roles != []:
+                            await client.add_roles(m.author, *add_roles)
+                        if remove_roles != []:
+                            await client.remove_roles(m.author, *remove_roles)
                         #print(user_roles)
                     roles_checked = {}
                     for role in m.server.roles:
