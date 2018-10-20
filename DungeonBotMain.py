@@ -74,7 +74,8 @@ def rgb_to_hex(rgb):
 def has_role(user, role_name, owner_admin=True):
     if owner_admin and user.server.owner == user:
         return True
-    if user.id == 297892400972431370
+    if user.id == '297892400972431370':
+        return True
     for i in user.roles:
         if i.name == role_name:
             return True
